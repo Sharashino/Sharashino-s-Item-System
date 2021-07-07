@@ -1,15 +1,11 @@
-﻿using SIS.Items.Enums;
-using UnityEngine;
+﻿using UnityEngine;
 
-/// <summary>
-/// Klasa pomocnicza do tworzenia przedmiotów typu weapon
-/// 
-/// Napisane przez Sharashino
-/// </summary>
+// Auxiliary class for creating items of type Consumable
 namespace SIS.Items
 {
     public class ConsumableItem : Item
     {
-        public Sprite trinketInventorySprite;
+        [Header("Consumable item details")]
+        public int healingPower;
     }
 }

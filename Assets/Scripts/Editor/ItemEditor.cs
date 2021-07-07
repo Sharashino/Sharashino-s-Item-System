@@ -4,97 +4,104 @@ using SIS.Items;
 using SIS.Items.Enums;
 using SIS.Actions.Interaction;
 
+// Main class used to create custom editor for item creation
 namespace SIS.Inventory.Editors
 {
     public class ItemEditor : EditorWindow
     {
-        private GameObject newItem;
-        private GameObject finalItem;
-        private GameObject interactionZone;
+        private GameObject newItem; // New item we're creating
+        private GameObject finalItem;   // Final item we're creating
+        private GameObject interactionZone; // Interaction zone we're adding to item
 
-        private int index = 0;
-        private bool generateInteractionZone;
+        private bool generateInteractionZone;   
+        private int index = 0;  // Index of Item Creation page
 
         private ItemTypes itemType;
 
         [MenuItem("Sharashino Tools/Create Item")]
-        static void Init()
+        
+        static void Init()  // Creating new EditorWindow based on this ItemEditor
         {
-            ItemEditor _editor = (ItemEditor)GetWindow(typeof(ItemEditor));
+            ItemEditor _editor = (ItemEditor)GetWindow(typeof(ItemEditor)); 
+            _editor.titleContent = new GUIContent("Item Creator");
             _editor.Show();
         }
        
-        private void OnGUI()
+        private void OnGUI()    // Displaying base item creation fields
         {
             if (index == 0)
             {
-                GUILayout.TextArea("New item", EditorStyles.boldLabel);
                 GUILayout.BeginVertical("HelpBox");
 
-                newItem = (GameObject)EditorGUILayout.ObjectField("Item model: ", newItem, typeof(GameObject), true);
-                generateInteractionZone = EditorGUILayout.Toggle("Interaction Zone: ", generateInteractionZone);
+                newItem = (GameObject)EditorGUILayout.ObjectField("Item model: ", newItem, typeof(GameObject), true);   // Field for item object
+                generateInteractionZone = EditorGUILayout.Toggle("Interaction Zone: ", generateInteractionZone);    // Bool for generating interaction zone
 
                 if(generateInteractionZone)
                 {
-                    interactionZone = (GameObject)EditorGUILayout.ObjectField("Interaction Zone model: ", interactionZone, typeof(GameObject), true);
+                    interactionZone = (GameObject)EditorGUILayout.ObjectField("Interaction Zone model: ", interactionZone, typeof(GameObject), true);   // Field for interaction zone
                 }
 
                 GUILayout.TextArea("Item Type", EditorStyles.boldLabel);
-                itemType = (ItemTypes)EditorGUILayout.EnumPopup(itemType, GUILayout.Width(100));
+                itemType = (ItemTypes)EditorGUILayout.EnumPopup(itemType, GUILayout.Width(100));    // Pop-up for item type
 
                 if (GUILayout.Button("Next"))
                 {
-                    finalItem = Instantiate(newItem);
-
-                    switch (itemType)
+                    if (newItem != null)
                     {
-                        case ItemTypes.Weapon:
+                        finalItem = Instantiate(newItem);
+
+                        switch (itemType)   // Adding correct item script to item we're creating 
+                        {
+                            case ItemTypes.Weapon:
                             {
                                 finalItem.AddComponent<WeaponItem>();
                                 break;
                             }
-                        case ItemTypes.Armor:
+                            case ItemTypes.Armor:
                             {
                                 finalItem.AddComponent<ArmorItem>();
                                 break;
                             }
-                        case ItemTypes.Trinket:
+                            case ItemTypes.Trinket:
                             {
                                 finalItem.AddComponent<TrinketItem>();
                                 break;
                             }
-                        case ItemTypes.Consumable:
+                            case ItemTypes.Consumable:
                             {
                                 finalItem.AddComponent<ConsumableItem>();
                                 break;
                             }
-                        case ItemTypes.None:
+                            case ItemTypes.None:
                             {
-                                finalItem.AddComponent<Item>();
+                                finalItem.AddComponent<Item>(); // Option for making scrap items
                                 break;
                             }
-                        default:
-                            finalItem.AddComponent<Item>();
-                            break;
+                            default:
+                                finalItem.AddComponent<Item>();
+                                break;
+                        }
+
+                        finalItem.tag = "Item";
+
+                        if(generateInteractionZone) // If you chose to have interaction zone, we're adding all components to make item pickable and interactable
+                        {
+                            interactionZone = Instantiate(interactionZone, finalItem.transform, true);
+                            ItemPickup itemPickup = finalItem.AddComponent<ItemPickup>();
+                            itemPickup.InteractionZone = interactionZone.GetComponent<InteractionZone>();
+                        }
+
+                        finalItem.name = newItem.name + " - Item";  // Setting name of newly created item
+
+                        Selection.activeGameObject = finalItem;
+                        SceneView.lastActiveSceneView.FrameSelected();
+
+                        index++;
                     }
-
-                    finalItem.tag = "Item";
-
-                    if(generateInteractionZone)
+                    else
                     {
-                        interactionZone = Instantiate(interactionZone);
-                        interactionZone.transform.parent = finalItem.transform;
-                        ItemPickup itemPickup = finalItem.AddComponent<ItemPickup>();
-                        itemPickup.InteractionZone = interactionZone.GetComponent<InteractionZone>();
+                        EditorUtility.DisplayDialog("Hey!","You forgot to put item model", "Sorry...");
                     }
-                    
-
-                    finalItem.name = newItem.name + " - Item";
-
-                    Selection.activeGameObject = finalItem;
-                    SceneView.lastActiveSceneView.FrameSelected();
-
-                    index++;
                 }
 
                 GUILayout.EndVertical();
@@ -108,7 +115,7 @@ namespace SIS.Inventory.Editors
                 {
                     Editor newItemEditor;
 
-                    switch (itemType)
+                    switch (itemType)   // Creating detailed editor based on item we're creating
                     {
                         case ItemTypes.Weapon:
                             newItemEditor = Editor.CreateEditor(finalItem.GetComponent<WeaponItem>());
@@ -136,41 +143,18 @@ namespace SIS.Inventory.Editors
                 }
                 else
                 {
-                    EditorGUILayout.HelpBox("Coś rozjebałeś, spróbuj od nowa. TYM RAZEM TEGO NIE SPIERDOL!!!", MessageType.Warning, true);
+                    EditorGUILayout.HelpBox("You deleted your item in the middle of creation, try again.", MessageType.Warning, true);
                 }
 
-                GUILayout.EndVertical();
+                EditorGUILayout.HelpBox("Don't forget to save new item as prefab by dragging it into project folder.", MessageType.Warning);
 
-                EditorGUILayout.HelpBox("Zapisz jeszcze prefab ściągając go z hierarhii do Projektu.", MessageType.Warning);
+                if (GUILayout.Button("Finish item creation"))
+                {
+                    Close();    //Closing this custom editor when you're done defining fields
+                }
+                
+                GUILayout.EndVertical();
             }
         }
-
-        
-
-        private void CreateWeapon()
-        {
-            finalItem.AddComponent<WeaponItem>();
-            WeaponItem newWeapon = finalItem.GetComponent<WeaponItem>();
-
-            newWeapon.weaponDamage = EditorGUILayout.IntField("Weapon Damage", newWeapon.weaponDamage);
-            newWeapon.weaponLevel = EditorGUILayout.IntField("Weapon Level", newWeapon.weaponLevel);
-        }
-        
-        private void CreateArmor()
-        {
-            
-        }
-        private void CreateConsumable()
-        {
-        }
-
-        private void CreateNone()
-        {
-            
-        }
-
-        
-
-        
     }
 }

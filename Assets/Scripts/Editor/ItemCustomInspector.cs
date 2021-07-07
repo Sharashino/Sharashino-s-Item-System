@@ -1,5 +1,4 @@
 ﻿using SIS.Items;
-using SIS.Items.Enums;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -20,7 +19,7 @@ namespace SIS.Inventory.Editors
             var style = new GUIStyle(GUI.skin.button);
             style.normal.textColor = Color.red;
             style.fontStyle = FontStyle.Bold;
-
+            
             if (GUILayout.Button("Save changes?", style))
             {
                 EditorUtility.SetDirty(item);
@@ -50,13 +49,13 @@ namespace SIS.Inventory.Editors
             item.itemHeight = EditorGUILayout.IntField("Height", item.itemHeight);
             GUILayout.EndVertical();
             
-                item.isStackable = EditorGUILayout.Toggle("Stackable", item.isStackable);
+            item.isStackable = EditorGUILayout.Toggle("Stackable", item.isStackable);
 
-                if (item.isStackable)
-                {
-                    item.itemStackSize = EditorGUILayout.IntSlider("Item stack size", item.itemStackSize, 1, 100);
-                    item.itemMaxStackSize = EditorGUILayout.IntSlider("Max stack size", item.itemMaxStackSize, 1, 100);
-                }
+            if (item.isStackable)
+            {
+                item.itemStackSize = EditorGUILayout.IntSlider("Item stack size", item.itemStackSize, 1, 100);
+                item.itemMaxStackSize = EditorGUILayout.IntSlider("Max stack size", item.itemMaxStackSize, 1, 100);
+            }
             
             GUILayout.EndVertical();
         }

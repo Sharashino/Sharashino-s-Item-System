@@ -1,17 +1,13 @@
-﻿using SIS.Items.Enums;
-using UnityEngine;
+﻿using UnityEngine;
+using SIS.Items.Enums;
 
-/// <summary>
-/// Klasa pomocnicza do tworzenia przedmiotów typu weapon
-/// 
-/// Napisane przez Sharashino
-/// </summary>
+// Auxiliary class for creating items of type Weapon
 namespace SIS.Items
 {
     public class WeaponItem : Item
     {
-        public WeaponTypes weaponType;
-        public Sprite weaponInventorySprite;
+        [Header("Weapon item details")]
+        public WeaponTypes weaponType;  //reference to our WeaponTypes enum
         public int weaponDamage;
         public int weaponLevel;
     }
