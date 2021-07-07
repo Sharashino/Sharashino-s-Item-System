@@ -91,8 +91,6 @@ namespace SIS.Inventory.Editors
                             itemPickup.InteractionZone = interactionZone.GetComponent<InteractionZone>();
                         }
 
-                        finalItem.name = newItem.name + " - Item";  // Setting name of newly created item
-
                         Selection.activeGameObject = finalItem;
                         SceneView.lastActiveSceneView.FrameSelected();
 
@@ -150,6 +148,7 @@ namespace SIS.Inventory.Editors
 
                 if (GUILayout.Button("Finish item creation"))
                 {
+                    finalItem.name = finalItem.GetComponent<Item>().itemName + " - Item";  // Setting name of newly created item
                     Close();    //Closing this custom editor when you're done defining fields
                 }
                 

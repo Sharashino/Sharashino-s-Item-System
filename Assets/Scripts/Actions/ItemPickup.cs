@@ -10,6 +10,11 @@ namespace SIS.Actions.Interaction
         [SerializeField] private Item item = default;   //reference to an item
 
         public Item Item { get => item; set => item = value; }
+
+        public new void Awake()
+        {
+            item = GetComponent<Item>();
+        }
         
         public override void Interact()
         {
