@@ -1,16 +1,12 @@
 ﻿using UnityEngine;
 
-// <summary>
-// Napisane przez Sharashino
-// 
-// Główna klasa rzeczy z którymi możemy wchodzić w interakcję, obecnie przyciskiem E (Sklepy, skrzynie, lootowanie, interakcja z postaciami)
-// </summary>
+// Main class for things player can interact with (currently with `E` key), all things that player can interact with should derive from this class
 namespace SIS.Actions.Interaction
 {
     public class Interactable : MonoBehaviour
     {
-        [SerializeField] private InteractionZone interactionZone;
-        [SerializeField] private bool isInteracting;
+        [SerializeField] private InteractionZone interactionZone;   //Reference to InteractionZone that checks if player is in range to interact
+        [SerializeField] private bool isInteracting;    //Player interaction checker
 
         public InteractionZone InteractionZone { get => interactionZone; set => interactionZone = value; }
 
@@ -23,25 +19,25 @@ namespace SIS.Actions.Interaction
         {
             if (interactionZone.IsInRange)
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E))    //If player is in range and presses E - start interaction
                 {
                     isInteracting = true;
                     Interact();
                 }
             }
-            else if(!interactionZone.IsInRange && isInteracting)
+            else if(!interactionZone.IsInRange && isInteracting)    //If player is out of range but still interacting - cancel interaction
             {
                 isInteracting = false;
                 StopInteract();
             }
         }
-
-        public virtual void Interact()
+        
+        public virtual void Interact() // Overwritable void for interaction
         {
 
         }
 
-        public virtual void StopInteract()
+        public virtual void StopInteract() // Overwritable void for stopping interaction
         {
 
         }

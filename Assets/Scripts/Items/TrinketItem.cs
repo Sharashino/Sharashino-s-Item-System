@@ -1,15 +1,13 @@
-﻿using SIS.Items.Enums;
-using UnityEngine;
+﻿using UnityEngine;
 
-/// <summary>
-/// Klasa pomocnicza do tworzenia przedmiotów typu weapon
-/// 
-/// Napisane przez Sharashino
-/// </summary>
+// Auxiliary class for Trinket Items
 namespace SIS.Items
 {
     public class TrinketItem : Item
     {
-        public Sprite trinketInventorySprite;
+        [Header("Trinket item details")] 
+        public int healthBuff;
+        public int staminaBuff;
+        public int manaBuff;
     }
 }
