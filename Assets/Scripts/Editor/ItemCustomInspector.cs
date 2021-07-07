@@ -8,53 +8,51 @@ namespace SIS.Inventory.Editors
     [CustomEditor(typeof(Item))]
     public class ItemCustomInspector : Editor
     {
-        private Item item;
+        private Item item;  //  Reference to Item we're displaying
 
         public override void OnInspectorGUI()
         {
-            item = target as Item;
+            item = target as Item;  // Telling unity to target this object as Item 
             
-            if(item) DrawGeneralItem();
+            if(item) DrawGeneralItem(); 
             
-            var style = new GUIStyle(GUI.skin.button);
+            var style = new GUIStyle(GUI.skin.button);  // Style for our save changes button
             style.normal.textColor = Color.red;
             style.fontStyle = FontStyle.Bold;
             
-            if (GUILayout.Button("Save changes?", style))
+            if (GUILayout.Button("Save changes?", style))   // Button for saving changes
             {
-                EditorUtility.SetDirty(item);
-                EditorSceneManager.MarkSceneDirty(item.gameObject.scene);
+                EditorUtility.SetDirty(item); // Marking this item as dirty to ensure all changes are registered
+                EditorSceneManager.MarkSceneDirty(item.gameObject.scene);   // Marking the scene as modified so it takes our changes
             }
         }
 
-        public void DrawGeneralItem()
+        public void DrawGeneralItem() // Drawing all item creation fields
         {
-            GUILayout.Label("General item settings", EditorStyles.boldLabel);
-            GUILayout.BeginVertical("HelpBox", GUILayout.Width(300));
-            item.itemName = EditorGUILayout.TextField("Name", item.itemName);
-            item.itemDescription = EditorGUILayout.TextField("Description", item.itemDescription);
+            GUILayout.BeginVertical("HelpBox");
+            GUILayout.Label("Basic Item Settings", EditorStyles.boldLabel);
+            item.itemName = EditorGUILayout.TextField("Item Name:", item.itemName);   // Text field for item name
+            item.itemDescription = EditorGUILayout.TextField("Item Description:", item.itemDescription);  // Text field for item description
+            item.itemIcon = (Sprite)EditorGUILayout.ObjectField("Item Icon:", item.itemIcon, typeof(Sprite), false); // Object field of type sprite for item icon
+            item.inventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Item Inventory Icon:", item.inventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for item inventory image
+            item.itemID = EditorGUILayout.IntField("Item ID", item.itemID);  // Int field for item id
 
-            item.itemIcon = (Sprite)EditorGUILayout.ObjectField("Item icon", item.itemIcon, typeof(Sprite), false);
-            item.inventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Item icon in inventory", item.inventoryItemSprite, typeof(Sprite), false);
-            item.itemID = EditorGUILayout.IntField("ID", item.itemID);
-
-            if (GUILayout.Button("Generate random ID?"))
+            if (GUILayout.Button("Generate random ID?"))    
             {
                 item.itemID = Random.Range(0, int.MaxValue);
             }
 
             GUILayout.BeginVertical("GroupBox");
-            GUILayout.Label("Item grid size", EditorStyles.boldLabel);
-            item.itemWidth = EditorGUILayout.IntField("Width", item.itemWidth);
-            item.itemHeight = EditorGUILayout.IntField("Height", item.itemHeight);
+            GUILayout.Label("Inventory Item Settings", EditorStyles.boldLabel);
+            item.itemWidth = EditorGUILayout.IntField("Inventory Width", item.itemWidth); // Int field for item inventory width
+            item.itemHeight = EditorGUILayout.IntField("Inventory Height", item.itemHeight); // Int field for item inventory height
             GUILayout.EndVertical();
             
-            item.isStackable = EditorGUILayout.Toggle("Stackable", item.isStackable);
+            item.isStackable = EditorGUILayout.Toggle("Stackable", item.isStackable); // Toggle for item stackable
 
             if (item.isStackable)
             {
-                item.itemStackSize = EditorGUILayout.IntSlider("Item stack size", item.itemStackSize, 1, 100);
-                item.itemMaxStackSize = EditorGUILayout.IntSlider("Max stack size", item.itemMaxStackSize, 1, 100);
+                item.itemMaxStackSize = EditorGUILayout.IntSlider("Max Stack Size", item.itemMaxStackSize, 1, 100); // Int field for item max stack size
             }
             
             GUILayout.EndVertical();
