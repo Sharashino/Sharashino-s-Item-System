@@ -15,7 +15,7 @@ namespace SIS.Inventory.Editors
         {
             weaponItem = target as WeaponItem;  // Telling unity to target this object as WeaponItem 
             
-            if(weaponItem) DrawGeneralItem(); 
+            if(weaponItem) DrawGeneralItem(); // Drawing all weapon fields
             
             var buttonStyle = new GUIStyle(GUI.skin.button);    // Style for our save changes button
             buttonStyle.normal.textColor = Color.red;
@@ -28,7 +28,7 @@ namespace SIS.Inventory.Editors
             }
         }
 
-        public void DrawGeneralItem() // Drawing all weapon creation fields
+        public void DrawGeneralItem() 
         {
             GUILayout.BeginVertical("HelpBox");
             GUILayout.Label("Basic Weapon Item Settings", EditorStyles.boldLabel);
@@ -36,7 +36,7 @@ namespace SIS.Inventory.Editors
             weaponItem.itemDescription = EditorGUILayout.TextField("Weapon description:", weaponItem.itemDescription);  // Text field for weapon description
             weaponItem.itemIcon = (Sprite)EditorGUILayout.ObjectField("Weapon icon:", weaponItem.itemIcon, typeof(Sprite), false); // Object field of type sprite for weapon icon
             weaponItem.inventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Inventory icon:", weaponItem.inventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for weapon inventory image
-            weaponItem.itemID = EditorGUILayout.IntField("Weapon ID:", weaponItem.itemID);  // Int field for weapon id
+            weaponItem.itemID = EditorGUILayout.IntField("Weapon ID:", weaponItem.itemID);  // Int field for weapon ID
             
             if (GUILayout.Button("Generate random weapon ID"))    // Generating random ID for weapon
             {

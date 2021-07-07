@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using SIS.Items.Enums;
 
-// Auxiliary class for creating items of type Weapon
+// Auxiliary class for Weapon Items
 namespace SIS.Items
 {
     public class WeaponItem : Item

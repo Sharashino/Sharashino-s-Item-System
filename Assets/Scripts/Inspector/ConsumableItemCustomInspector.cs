@@ -14,7 +14,7 @@ namespace SIS.Inventory.Editors
         {
             consumableItem = target as ConsumableItem;  // Telling unity to target this object as ConsumableItem 
             
-            if(consumableItem) DrawGeneralItem(); 
+            if(consumableItem) DrawGeneralItem(); // Drawing all consumable fields
             
             var buttonStyle = new GUIStyle(GUI.skin.button);    // Style for our save changes button
             buttonStyle.normal.textColor = Color.red;
@@ -27,7 +27,7 @@ namespace SIS.Inventory.Editors
             }
         }
 
-        public void DrawGeneralItem() // Drawing all consumable fields
+        public void DrawGeneralItem()
         {
             GUILayout.BeginVertical("HelpBox");
             GUILayout.Label("Basic Trinket Item Settings", EditorStyles.boldLabel);

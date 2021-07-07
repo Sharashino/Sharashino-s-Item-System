@@ -14,7 +14,7 @@ namespace SIS.Inventory.Editors
         {
             trinketItem = target as TrinketItem;  // Telling unity to target this object as TrinketItem 
             
-            if(trinketItem) DrawGeneralItem(); 
+            if(trinketItem) DrawGeneralItem(); // Drawing all trinket fields
             
             var buttonStyle = new GUIStyle(GUI.skin.button);    // Style for our save changes button
             buttonStyle.normal.textColor = Color.red;
@@ -27,7 +27,7 @@ namespace SIS.Inventory.Editors
             }
         }
 
-        public void DrawGeneralItem() // Drawing all trinket fields
+        public void DrawGeneralItem()
         {
             GUILayout.BeginVertical("HelpBox");
             GUILayout.Label("Basic Trinket Item Settings", EditorStyles.boldLabel);
@@ -35,7 +35,7 @@ namespace SIS.Inventory.Editors
             trinketItem.itemDescription = EditorGUILayout.TextField("Trinket description:", trinketItem.itemDescription);  // Text field for trinket description
             trinketItem.itemIcon = (Sprite)EditorGUILayout.ObjectField("Trinket icon:", trinketItem.itemIcon, typeof(Sprite), false); // Object field of type sprite for trinket icon
             trinketItem.inventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Inventory icon:", trinketItem.inventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for trinket inventory image
-            trinketItem.itemID = EditorGUILayout.IntField("Trinket ID:", trinketItem.itemID);  // Int field for trinket id
+            trinketItem.itemID = EditorGUILayout.IntField("Trinket ID:", trinketItem.itemID);  // Int field for trinket ID
             
             if (GUILayout.Button("Generate random trinket ID"))    // Generating random ID for trinket
             {

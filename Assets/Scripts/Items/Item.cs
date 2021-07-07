@@ -2,7 +2,7 @@
 using SIS.Items.Enums;
 using UnityEngine.Events;
 
-// Main class for creating items
+// Main class for Items
 namespace SIS.Items
 {
     public class Item : MonoBehaviour
@@ -17,15 +17,15 @@ namespace SIS.Items
         public int itemID;
         public string itemName;
         public string itemDescription;
-        public Sprite itemIcon; //reference to this item icon that can shown in shop e.g
-        public Sprite inventoryItemSprite;  //reference to this item image that can be shown in inventory 
+        public Sprite itemIcon; //reference to this item icon that can shown in inventory
+        public Sprite inventoryItemSprite;  //reference to this item image that can be shown in equipment 
         public ItemTypes itemType;
 
         [Range(1, 10)]
         public int itemWidth = 1, itemHeight = 1;   // Item size if you want to have different item sizes and grid inventory
 
         [Header("Stack options")]
-        public bool isStackable;    // If item can be stackable e.g blocks in Minecraft
+        public bool isStackable;    // If item can be stackable e.g torches, potions
 
         [Range(1, 100)]
         public int itemMaxStackSize = 1;    // Max stack size

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-// Auxiliary class for creating items of type Trinket
+// Auxiliary class for Trinket Items
 namespace SIS.Items
 {
     public class TrinketItem : Item

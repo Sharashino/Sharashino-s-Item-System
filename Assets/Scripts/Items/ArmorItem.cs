@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using SIS.Items.Enums;
 
-// Auxiliary class for creating items of type Armor
+// Auxiliary class for Armor Items
 namespace SIS.Items
 {
     public class ArmorItem : Item

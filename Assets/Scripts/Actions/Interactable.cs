@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-// Main class for things player can interact with (currently with `E` key)
+// Main class for things player can interact with (currently with `E` key), all things that player can interact with should derive from this class
 namespace SIS.Actions.Interaction
 {
     public class Interactable : MonoBehaviour
@@ -32,14 +32,12 @@ namespace SIS.Actions.Interaction
             }
         }
         
-        // Overwritable void for interaction
-        public virtual void Interact()
+        public virtual void Interact() // Overwritable void for interaction
         {
 
         }
 
-        // Overwritable void for stopping interaction
-        public virtual void StopInteract()
+        public virtual void StopInteract() // Overwritable void for stopping interaction
         {
 
         }

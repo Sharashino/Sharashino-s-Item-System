@@ -14,7 +14,7 @@ namespace SIS.Inventory.Editors
         {
             item = target as Item;  // Telling unity to target this object as Item 
             
-            if(item) DrawGeneralItem(); 
+            if(item) DrawGeneralItem(); // Drawing all item fields
             
             var style = new GUIStyle(GUI.skin.button);  // Style for our save changes button
             style.normal.textColor = Color.red;
@@ -27,7 +27,7 @@ namespace SIS.Inventory.Editors
             }
         }
 
-        public void DrawGeneralItem() // Drawing all item creation fields
+        public void DrawGeneralItem()
         {
             GUILayout.BeginVertical("HelpBox");
             GUILayout.Label("Basic Item Settings", EditorStyles.boldLabel);

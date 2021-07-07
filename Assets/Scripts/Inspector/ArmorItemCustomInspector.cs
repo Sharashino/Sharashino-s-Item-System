@@ -15,7 +15,7 @@ namespace SIS.Inventory.Editors
         {
             armorItem = target as ArmorItem;  // Telling unity to target this object as ArmorItem 
             
-            if(armorItem) DrawGeneralItem(); 
+            if(armorItem) DrawGeneralItem(); // Drawing all armor fields
             
             var buttonStyle = new GUIStyle(GUI.skin.button);    // Style for our save changes button
             buttonStyle.normal.textColor = Color.red;
@@ -28,7 +28,7 @@ namespace SIS.Inventory.Editors
             }
         }
 
-        public void DrawGeneralItem() // Drawing all armor creation fields
+        public void DrawGeneralItem()
         {
             GUILayout.BeginVertical("HelpBox");
             GUILayout.Label("Basic Armor Item Settings", EditorStyles.boldLabel);
@@ -36,7 +36,7 @@ namespace SIS.Inventory.Editors
             armorItem.itemDescription = EditorGUILayout.TextField("Armor description:", armorItem.itemDescription);  // Text field for armor description
             armorItem.itemIcon = (Sprite)EditorGUILayout.ObjectField("Armor icon:", armorItem.itemIcon, typeof(Sprite), false); // Object field of type sprite for armor icon
             armorItem.inventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Inventory icon:", armorItem.inventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for armor inventory image
-            armorItem.itemID = EditorGUILayout.IntField("Armor ID:", armorItem.itemID);  // Int field for armor id
+            armorItem.itemID = EditorGUILayout.IntField("Armor ID:", armorItem.itemID);  // Int field for armor ID
             
             if (GUILayout.Button("Generate random armor ID"))    // Generating random ID for armor
             {

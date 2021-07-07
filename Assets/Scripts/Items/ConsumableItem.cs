@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-// Auxiliary class for creating items of type Consumable
+// Auxiliary class for Consumable Items
 namespace SIS.Items
 {
     public class ConsumableItem : Item
