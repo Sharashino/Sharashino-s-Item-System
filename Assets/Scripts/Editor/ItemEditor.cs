@@ -12,8 +12,6 @@ namespace SIS.Inventory.Editors
         private GameObject newItem; // New item we're creating
         private GameObject finalItem;   // Final item we're creating
         private GameObject interactionZone; // Interaction zone we're adding to item
-
-        private bool generateInteractionZone;   
         private int index = 0;  // Index of Item Creation page
 
         private ItemTypes itemType;
@@ -34,12 +32,7 @@ namespace SIS.Inventory.Editors
                 GUILayout.BeginVertical("HelpBox");
 
                 newItem = (GameObject)EditorGUILayout.ObjectField("Item model: ", newItem, typeof(GameObject), true);   // Field for item object
-                generateInteractionZone = EditorGUILayout.Toggle("Interaction Zone: ", generateInteractionZone);    // Bool for generating interaction zone
-
-                if(generateInteractionZone)
-                {
-                    interactionZone = (GameObject)EditorGUILayout.ObjectField("Interaction Zone model: ", interactionZone, typeof(GameObject), true);   // Field for interaction zone
-                }
+                interactionZone = (GameObject)EditorGUILayout.ObjectField("Interaction Zone model: ", interactionZone, typeof(GameObject), true);   // Field for interaction zone
 
                 GUILayout.TextArea("Item Type", EditorStyles.boldLabel);
                 itemType = (ItemTypes)EditorGUILayout.EnumPopup(itemType, GUILayout.Width(100));    // Pop-up for item type
@@ -83,13 +76,9 @@ namespace SIS.Inventory.Editors
                         }
 
                         finalItem.tag = "Item";
-
-                        if(generateInteractionZone) // If you chose to have interaction zone, we're adding all components to make item pickable and interactable
-                        {
-                            interactionZone = Instantiate(interactionZone, finalItem.transform, true);
-                            ItemPickup itemPickup = finalItem.AddComponent<ItemPickup>();
-                            itemPickup.InteractionZone = interactionZone.GetComponent<InteractionZone>();
-                        }
+                        interactionZone = Instantiate(interactionZone, finalItem.transform, true);
+                        ItemPickup itemPickup = finalItem.AddComponent<ItemPickup>();
+                        itemPickup.InteractionZone = interactionZone.GetComponent<InteractionZone>();
 
                         Selection.activeGameObject = finalItem;
                         SceneView.lastActiveSceneView.FrameSelected();
