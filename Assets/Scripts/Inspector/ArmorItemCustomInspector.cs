@@ -32,25 +32,24 @@ namespace SIS.Inventory.Editors
         {
             GUILayout.BeginVertical("HelpBox");
             GUILayout.Label("Basic Armor Item Settings", EditorStyles.boldLabel);
-            armorItem.itemName = EditorGUILayout.TextField("Armor name:", armorItem.itemName);   // Text field for armor name
-            armorItem.itemDescription = EditorGUILayout.TextField("Armor description:", armorItem.itemDescription);  // Text field for armor description
-            armorItem.itemIcon = (Sprite)EditorGUILayout.ObjectField("Armor icon:", armorItem.itemIcon, typeof(Sprite), false); // Object field of type sprite for armor icon
-            armorItem.inventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Inventory icon:", armorItem.inventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for armor inventory image
-            armorItem.itemID = EditorGUILayout.IntField("Armor ID:", armorItem.itemID);  // Int field for armor ID
+            armorItem.ItemName = EditorGUILayout.TextField("Armor name:", armorItem.ItemName);   // Text field for armor name
+            armorItem.ItemDescription = EditorGUILayout.TextField("Armor description:", armorItem.ItemDescription);  // Text field for armor description
+            armorItem.ItemIcon = (Sprite)EditorGUILayout.ObjectField("Armor icon:", armorItem.ItemIcon, typeof(Sprite), false); // Object field of type sprite for armor icon
+            armorItem.InventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Inventory icon:", armorItem.InventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for armor inventory image
+            armorItem.ItemID = EditorGUILayout.IntField("Armor ID:", armorItem.ItemID);  // Int field for armor ID
             
             if (GUILayout.Button("Generate random armor ID"))    // Generating random ID for armor
             {
-                armorItem.itemID = Random.Range(0, int.MaxValue);
+                armorItem.ItemID = Random.Range(0, int.MaxValue);
             }
             
             GUILayout.Label("Inventory Armor Settings", EditorStyles.boldLabel);
-            armorItem.itemWidth = EditorGUILayout.IntField("Inventory Width:", armorItem.itemWidth);    // Int field for inventory armor width
-            armorItem.itemHeight = EditorGUILayout.IntField("Inventory Height:", armorItem.itemHeight); // Int field for inventory armor height
-            armorItem.isStackable = EditorGUILayout.Toggle("Stackable", armorItem.isStackable);   // Toggle for armor stackable
+            armorItem.ItemSize = EditorGUILayout.Vector2IntField("Inventory Height:", armorItem.ItemSize); // Int field for inventory armor height
+            armorItem.IsStackable = EditorGUILayout.Toggle("Stackable", armorItem.IsStackable);   // Toggle for armor stackable
 
-            if (armorItem.isStackable)
+            if (armorItem.IsStackable)
             {
-                armorItem.itemMaxStackSize = EditorGUILayout.IntSlider("Max stack size", armorItem.itemMaxStackSize, 1, 100); // Int field for armor max stack size
+                armorItem.ItemMaxStackSize = EditorGUILayout.IntSlider("Max stack size", armorItem.ItemMaxStackSize, 1, 100); // Int field for armor max stack size
             }
             
             GUILayout.EndVertical();

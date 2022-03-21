@@ -1,7 +1,7 @@
-﻿using SIS.Items;
-using UnityEngine;
+﻿using UnityEditor.SceneManagement;
 using UnityEditor;
-using UnityEditor.SceneManagement;
+using UnityEngine;
+using SIS.Items;
 
 namespace SIS.Inventory.Editors
 {
@@ -31,25 +31,24 @@ namespace SIS.Inventory.Editors
         {
             GUILayout.BeginVertical("HelpBox");
             GUILayout.Label("Basic Trinket Item Settings", EditorStyles.boldLabel);
-            consumableItem.itemName = EditorGUILayout.TextField("Consumable Name:", consumableItem.itemName);   // Text field for consumable name
-            consumableItem.itemDescription = EditorGUILayout.TextField("Consumable Description:", consumableItem.itemDescription);  // Text field for consumable description
-            consumableItem.itemIcon = (Sprite)EditorGUILayout.ObjectField("Consumable Icon:", consumableItem.itemIcon, typeof(Sprite), false); // Object field of type sprite for consumable icon
-            consumableItem.inventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Consumable Inventory Icon:", consumableItem.inventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for consumable inventory image
-            consumableItem.itemID = EditorGUILayout.IntField("Consumable ID:", consumableItem.itemID);  // Int field for consumable ID
+            consumableItem.ItemName = EditorGUILayout.TextField("Consumable Name:", consumableItem.ItemName);   // Text field for consumable name
+            consumableItem.ItemDescription = EditorGUILayout.TextField("Consumable Description:", consumableItem.ItemDescription);  // Text field for consumable description
+            consumableItem.ItemIcon = (Sprite)EditorGUILayout.ObjectField("Consumable Icon:", consumableItem.ItemIcon, typeof(Sprite), false); // Object field of type sprite for consumable icon
+            consumableItem.InventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Consumable Inventory Icon:", consumableItem.InventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for consumable inventory image
+            consumableItem.ItemID = EditorGUILayout.IntField("Consumable ID:", consumableItem.ItemID);  // Int field for consumable ID
             
             if (GUILayout.Button("Generate random consumable ID"))    // Generating random ID for consumable
             {
-                consumableItem.itemID = Random.Range(0, int.MaxValue);
+                consumableItem.ItemID = Random.Range(0, int.MaxValue);
             }
             
             GUILayout.Label("Inventory Consumable Settings:", EditorStyles.boldLabel);
-            consumableItem.itemWidth = EditorGUILayout.IntField("Inventory Width:", consumableItem.itemWidth);    // Int field for inventory consumable width
-            consumableItem.itemHeight = EditorGUILayout.IntField("Inventory Height:", consumableItem.itemHeight); // Int field for inventory consumable height
-            consumableItem.isStackable = EditorGUILayout.Toggle("Stackable:", consumableItem.isStackable);   // Toggle for consumable stackable
+            consumableItem.ItemSize = EditorGUILayout.Vector2IntField("Inventory Width:", consumableItem.ItemSize);    // Int field for inventory consumable width
+            consumableItem.IsStackable = EditorGUILayout.Toggle("Stackable:", consumableItem.IsStackable);   // Toggle for consumable stackable
 
-            if (consumableItem.isStackable)
+            if (consumableItem.IsStackable)
             {
-                consumableItem.itemMaxStackSize = EditorGUILayout.IntSlider("Max Stack Size:", consumableItem.itemMaxStackSize, 1, 100); // Int field for consumable max stack size
+                consumableItem.ItemMaxStackSize = EditorGUILayout.IntSlider("Max Stack Size:", consumableItem.ItemMaxStackSize, 1, 100); // Int field for consumable max stack size
             }
             
             GUILayout.EndVertical();

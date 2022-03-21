@@ -1,7 +1,7 @@
-﻿using SIS.Items;
-using UnityEngine;
+﻿using UnityEditor.SceneManagement;
 using UnityEditor;
-using UnityEditor.SceneManagement;
+using UnityEngine;
+using SIS.Items;
 
 namespace SIS.Inventory.Editors
 {
@@ -31,25 +31,24 @@ namespace SIS.Inventory.Editors
         {
             GUILayout.BeginVertical("HelpBox");
             GUILayout.Label("Basic Trinket Item Settings", EditorStyles.boldLabel);
-            trinketItem.itemName = EditorGUILayout.TextField("Trinket name:", trinketItem.itemName);   // Text field for trinket name
-            trinketItem.itemDescription = EditorGUILayout.TextField("Trinket description:", trinketItem.itemDescription);  // Text field for trinket description
-            trinketItem.itemIcon = (Sprite)EditorGUILayout.ObjectField("Trinket icon:", trinketItem.itemIcon, typeof(Sprite), false); // Object field of type sprite for trinket icon
-            trinketItem.inventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Inventory icon:", trinketItem.inventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for trinket inventory image
-            trinketItem.itemID = EditorGUILayout.IntField("Trinket ID:", trinketItem.itemID);  // Int field for trinket ID
+            trinketItem.ItemName = EditorGUILayout.TextField("Trinket name:", trinketItem.ItemName);   // Text field for trinket name
+            trinketItem.ItemDescription = EditorGUILayout.TextField("Trinket description:", trinketItem.ItemDescription);  // Text field for trinket description
+            trinketItem.ItemIcon = (Sprite)EditorGUILayout.ObjectField("Trinket icon:", trinketItem.ItemIcon, typeof(Sprite), false); // Object field of type sprite for trinket icon
+            trinketItem.InventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Inventory icon:", trinketItem.InventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for trinket inventory image
+            trinketItem.ItemID = EditorGUILayout.IntField("Trinket ID:", trinketItem.ItemID);  // Int field for trinket ID
             
             if (GUILayout.Button("Generate random trinket ID"))    // Generating random ID for trinket
             {
-                trinketItem.itemID = Random.Range(0, int.MaxValue);
+                trinketItem.ItemID = Random.Range(0, int.MaxValue);
             }
             
             GUILayout.Label("Inventory Trinket Settings", EditorStyles.boldLabel);
-            trinketItem.itemWidth = EditorGUILayout.IntField("Inventory Width:", trinketItem.itemWidth);    // Int field for inventory trinket width
-            trinketItem.itemHeight = EditorGUILayout.IntField("Inventory Height:", trinketItem.itemHeight); // Int field for inventory trinket height
-            trinketItem.isStackable = EditorGUILayout.Toggle("Stackable", trinketItem.isStackable);   // Toggle for trinket stackable
+            trinketItem.ItemSize = EditorGUILayout.Vector2IntField("Inventory Width:", trinketItem.ItemSize);    // Int field for inventory trinket width
+            trinketItem.IsStackable = EditorGUILayout.Toggle("Stackable", trinketItem.IsStackable);   // Toggle for trinket stackable
 
-            if (trinketItem.isStackable)
-            {
-                trinketItem.itemMaxStackSize = EditorGUILayout.IntSlider("Max stack size", trinketItem.itemMaxStackSize, 1, 100); // Int field for trinket max stack size
+            if (trinketItem.IsStackable)
+            {               
+                trinketItem.ItemMaxStackSize = EditorGUILayout.IntSlider("Max stack size", trinketItem.ItemMaxStackSize, 1, 100); // Int field for trinket max stack size
             }
             
             GUILayout.EndVertical();

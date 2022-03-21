@@ -1,8 +1,8 @@
-﻿using SIS.Items;
+﻿using UnityEditor.SceneManagement;
 using SIS.Items.Enums;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.SceneManagement;
+using SIS.Items;
 
 namespace SIS.Inventory.Editors
 {
@@ -32,25 +32,24 @@ namespace SIS.Inventory.Editors
         {
             GUILayout.BeginVertical("HelpBox");
             GUILayout.Label("Basic Weapon Item Settings", EditorStyles.boldLabel);
-            weaponItem.itemName = EditorGUILayout.TextField("Weapon name:", weaponItem.itemName);   // Text field for weapon name
-            weaponItem.itemDescription = EditorGUILayout.TextField("Weapon description:", weaponItem.itemDescription);  // Text field for weapon description
-            weaponItem.itemIcon = (Sprite)EditorGUILayout.ObjectField("Weapon icon:", weaponItem.itemIcon, typeof(Sprite), false); // Object field of type sprite for weapon icon
-            weaponItem.inventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Inventory icon:", weaponItem.inventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for weapon inventory image
-            weaponItem.itemID = EditorGUILayout.IntField("Weapon ID:", weaponItem.itemID);  // Int field for weapon ID
+            weaponItem.ItemName = EditorGUILayout.TextField("Weapon name:", weaponItem.ItemName);   // Text field for weapon name
+            weaponItem.ItemDescription = EditorGUILayout.TextField("Weapon description:", weaponItem.ItemDescription);  // Text field for weapon description
+            weaponItem.ItemIcon = (Sprite)EditorGUILayout.ObjectField("Weapon icon:", weaponItem.ItemIcon, typeof(Sprite), false); // Object field of type sprite for weapon icon
+            weaponItem.InventoryItemSprite = (Sprite)EditorGUILayout.ObjectField("Inventory icon:", weaponItem.InventoryItemSprite, typeof(Sprite), false); // Object field of type sprite for weapon inventory image
+            weaponItem.ItemID = EditorGUILayout.IntField("Weapon ID:", weaponItem.ItemID);  // Int field for weapon ID
             
             if (GUILayout.Button("Generate random weapon ID"))    // Generating random ID for weapon
             {
-                weaponItem.itemID = Random.Range(0, int.MaxValue);
+                weaponItem.ItemID = Random.Range(0, int.MaxValue);
             }
             
             GUILayout.Label("Inventory Weapon Settings", EditorStyles.boldLabel);
-            weaponItem.itemWidth = EditorGUILayout.IntField("Inventory Width:", weaponItem.itemWidth);    // Int field for inventory weapon width
-            weaponItem.itemHeight = EditorGUILayout.IntField("Inventory Height:", weaponItem.itemHeight); // Int field for inventory weapon height
-            weaponItem.isStackable = EditorGUILayout.Toggle("Stackable", weaponItem.isStackable);   // Toggle for weapon stackable
+            weaponItem.ItemSize = EditorGUILayout.Vector2IntField("Inventory Height:", weaponItem.ItemSize); // Int field for inventory weapon height
+            weaponItem.IsStackable = EditorGUILayout.Toggle("Stackable", weaponItem.IsStackable);   // Toggle for weapon stackable
 
-            if (weaponItem.isStackable)
+            if (weaponItem.IsStackable)
             {
-                weaponItem.itemMaxStackSize = EditorGUILayout.IntSlider("Max stack size", weaponItem.itemMaxStackSize, 1, 100); // Int field for weapon max stack size
+                weaponItem.ItemMaxStackSize = EditorGUILayout.IntSlider("Max stack size", weaponItem.ItemMaxStackSize, 1, 100); // Int field for weapon max stack size
             }
             
             GUILayout.EndVertical();

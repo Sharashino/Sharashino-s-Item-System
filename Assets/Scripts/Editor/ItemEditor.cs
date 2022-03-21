@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using SIS.Actions.Interaction;
+using SIS.Items.Enums;
+using UnityEngine;
 using UnityEditor;
 using SIS.Items;
-using SIS.Items.Enums;
-using SIS.Actions.Interaction;
 
 // Main class used to create custom editor for item creation
 namespace SIS.Inventory.Editors
@@ -85,15 +85,12 @@ namespace SIS.Inventory.Editors
 
                         index++;
                     }
-                    else
-                    {
-                        EditorUtility.DisplayDialog("Hey!","You forgot to put item model", "Sorry...");
-                    }
+                    else EditorUtility.DisplayDialog("Hey!", "You forgot to put item model", "Sorry...");
                 }
 
                 GUILayout.EndVertical();
             }
-            else if(index == 1)
+            else if (index == 1)
             {
                 GUILayout.TextArea(newItem.name, EditorStyles.boldLabel);
                 GUILayout.BeginVertical("HelpBox");
@@ -128,16 +125,13 @@ namespace SIS.Inventory.Editors
                             break;
                     }
                 }
-                else
-                {
-                    EditorGUILayout.HelpBox("You deleted your item in the middle of creation, try again.", MessageType.Warning, true);
-                }
+                else EditorGUILayout.HelpBox("You deleted your item in the middle of creation, try again.", MessageType.Warning, true);
 
                 EditorGUILayout.HelpBox("Don't forget to save new item as prefab by dragging it into project folder.", MessageType.Warning);
 
                 if (GUILayout.Button("Finish item creation"))
                 {
-                    finalItem.name = finalItem.GetComponent<Item>().itemName + " - Item";  // Setting name of newly created item
+                    finalItem.name = finalItem.GetComponent<Item>().ItemName + " - Item";  // Setting name of newly created item
                     Close();    //Closing this custom editor when you're done defining fields
                 }
                 
